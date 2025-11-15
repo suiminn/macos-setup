@@ -1,4 +1,5 @@
 tap "alienator88/cask"
+tap "ci7lus/miraktest"
 tap "grishka/grishka"
 brew "aria2"
 brew "bento4"
@@ -37,7 +38,7 @@ cask "gimp"
 cask "github"
 cask "google-drive"
 cask "google-japanese-ime"
-cask "handbrake"
+cask "handbrake-app"
 cask "hex-fiend"
 cask "hidock"
 cask "inkscape"
@@ -51,6 +52,7 @@ cask "logi-options+"
 cask "meld"
 cask "microsoft-auto-update"
 cask "microsoft-office"
+cask "miraktest"
 cask "mist"
 cask "motrix"
 cask "mullvad-browser"
@@ -83,7 +85,6 @@ cask "wireshark-app"
 mas "Bitwarden", id: 1352778147
 mas "LINE", id: 539883307
 mas "Pycopaste", id: 1635345871
-mas "Reeder", id: 1529448980
 mas "stone", id: 1230288277
 mas "Whisper Transcription", id: 1668083311
 vscode "davidanson.vscode-markdownlint"
