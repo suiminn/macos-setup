@@ -1,35 +1,56 @@
 #!/bin/zsh
+set -euo pipefail
 
-sudo -v
-sed -e 's/^#auth/auth/' /etc/pam.d/sudo_local.template | sudo tee /etc/pam.d/sudo_local
+REPO_URL="https://github.com/suiminn/macos-setup.git"
+INSTALL_DIR="${MACOS_SETUP_DIR:-$HOME/.local/share/macos-setup}"
 
-# Enable Firewall
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+resolve_repo_dir() {
+  if [[ -n "${0:-}" && -f "$0" ]]; then
+    local script_dir="${0:A:h}"
+    if [[ -f "$script_dir/Brewfile" && -d "$script_dir/scripts" ]]; then
+      print -r -- "$script_dir"
+      return
+    fi
+  fi
 
-# Finder
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
-defaults write com.apple.finder AppleShowAllFiles -bool true
-defaults write com.apple.finder ShowPathbar -bool true
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-defaults write com.apple.finder NewWindowTarget -string "PfLo"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-killall Finder
+  if ! command -v git >/dev/null 2>&1; then
+    print -u2 "git is required to clone $REPO_URL"
+    exit 1
+  fi
 
-# SystemUIServer
-defaults write com.apple.menuextra.clock ShowSeconds -bool true
-mkdir -p ~/Pictures/Screenshots
-defaults write com.apple.screencapture location ~/Pictures/Screenshots
-killall SystemUIServer
+  if [[ -d "$INSTALL_DIR/.git" ]]; then
+    git -C "$INSTALL_DIR" pull --ff-only >&2
+  elif [[ -e "$INSTALL_DIR" ]]; then
+    print -u2 "$INSTALL_DIR already exists and is not a git repository"
+    exit 1
+  else
+    mkdir -p "${INSTALL_DIR:h}"
+    git clone "$REPO_URL" "$INSTALL_DIR" >&2
+  fi
 
-# Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo >> "$HOME/.zprofile"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
-eval "$(/opt/homebrew/bin/brew shellenv)"
-curl -o Brewfile https://raw.githubusercontent.com/suiminn/macos-setup/refs/heads/main/Brewfile
-brew bundle
+  print -r -- "$INSTALL_DIR"
+}
 
-# palera1n
-sudo /bin/sh -c "$(curl -fsSL https://static.palera.in/scripts/install.sh)"
+run_step() {
+  local name="$1"
+  shift
+
+  print
+  print "==> $name"
+  "$@"
+}
+
+REPO_DIR="$(resolve_repo_dir)"
+
+run_step "Configure sudo Touch ID" "$REPO_DIR/scripts/configure-sudo-touch-id.sh"
+run_step "Apply macOS defaults" "$REPO_DIR/scripts/macos-defaults.sh"
+run_step "Install Homebrew dependencies" "$REPO_DIR/scripts/install-homebrew.sh" "$REPO_DIR/Brewfile"
+run_step "Link dotfiles" "$REPO_DIR/scripts/link-dotfiles.sh"
+
+if [[ "${INSTALL_PALERA1N:-0}" == "1" ]]; then
+  run_step "Install palera1n" "$REPO_DIR/scripts/install-palera1n.sh"
+else
+  print
+  print "==> Skip palera1n"
+  print "Set INSTALL_PALERA1N=1 to install palera1n."
+fi
