@@ -5,6 +5,8 @@ tap "sikarugir-app/sikarugir"
 brew "aria2"
 # Full-featured MP4 format and MPEG DASH library and tools
 brew "bento4"
+# Create and run Linux containers using lightweight virtual machines
+brew "container"
 # Like neofetch, but much faster because written mostly in C
 brew "fastfetch"
 # Play, record, convert, and stream select audio and video codecs
@@ -25,6 +27,8 @@ brew "payload-dumper-go"
 brew "scrcpy"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Internet file retriever
@@ -37,8 +41,6 @@ cask "ableton-live-suite"
 cask "adguard-vpn"
 # Image editing and design software
 cask "affinity"
-# Configure Gatekeeper, unquarantine and self-sign apps
-cask "alienator88-sentinel"
 # Android SDK component
 cask "android-platform-tools"
 # Agent orchestration platform
@@ -81,28 +83,40 @@ cask "hex-fiend"
 cask "hhkb"
 # Set custom Dock settings for when on different displays
 cask "hidock"
+# Free and open-source media player
+cask "iina"
 # Sideloading application for iOS/tvOS
 cask "impactor"
-# Menu bar manager
-cask "jordanbaird-ice"
 # Keyboard customiser
 cask "karabiner-elements"
+# Communicate with your handheld devices
+cask "kde-connect"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
 # Electronics design automation suite
 cask "kicad"
+# Free cross-platform office suite, fresh version
+cask "libreoffice"
+# Collection of alternate languages for LibreOffice
+cask "libreoffice-language-pack"
 # Clipboard manager
 cask "maccy"
 # Video format converter (transcoder)
 cask "makemkv"
 # Implementation study of digital television viewing application for Mirakurun
-cask "ci7lus/miraktest/miraktest"
+cask "ci7lus/miraktest/miraktest", trusted: true
 # Utility that automatically downloads firmwares and installers
 cask "mist"
+# Music tagger
+cask "musicbrainz-picard"
 # Unofficial Google Nearby Share app
-cask "grishka/grishka/neardrop"
+cask "grishka/grishka/neardrop", trusted: true
 # Open-source software for live streaming and screen recording
 cask "obs"
+# Cloud storage client
+cask "onedrive"
+# Local-first alternative to Logitech Options+ for HID++ devices
+cask "openlogi"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Graphical user interface for the 'defaults' command
@@ -128,7 +142,7 @@ cask "sdformatter"
 # Additional features and controls for Shure MV7 and MV88+ microphones
 cask "shureplus-motiv"
 # Porting tool, to make Windows programs/games into native apps
-cask "sikarugir-app/sikarugir/sikarugir"
+cask "sikarugir-app/sikarugir/sikarugir", trusted: true
 # Notepad with a built-in calculator
 cask "soulver"
 # Music streaming service
@@ -139,6 +153,8 @@ cask "swinsian"
 cask "tailscale-app"
 # Desktop client for Telegram messenger
 cask "telegram-desktop"
+# Menu bar manager
+cask "thaw"
 # Unpacks archive files
 cask "the-unarchiver"
 # Web browser focusing on security

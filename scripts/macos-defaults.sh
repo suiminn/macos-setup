@@ -6,6 +6,12 @@ sudo -v
 # Firewall
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
+# Smart Card
+sudo defaults write /Library/Preferences/com.apple.security.smartcard useIFDCCID -bool yes
+
+# Mouse
+defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+
 # Finder
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
