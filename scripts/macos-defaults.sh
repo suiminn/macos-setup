@@ -17,11 +17,20 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.finder NewWindowTarget -string "PfLo"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 killall Finder >/dev/null 2>&1 || true
+
+# Save and Print Dialogs
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # SystemUIServer
 defaults write com.apple.menuextra.clock ShowSeconds -bool true
